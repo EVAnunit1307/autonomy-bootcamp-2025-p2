@@ -253,10 +253,6 @@ def main() -> int:
             main_logger.info(f"Heartbeat status: {heartbeat_state}", True)
             if heartbeat_state == "Disconnected":
                 break
-        except queue.Empty:
-            pass
-
-        try:
             command_output = command_to_main_queue.queue.get(timeout=0.2)
             main_logger.info(f"Command output: {command_output}", True)
         except queue.Empty:

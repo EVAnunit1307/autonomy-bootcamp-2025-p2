@@ -60,6 +60,10 @@ def stop(
     """
     controller = args["controller"]
     controller.request_exit()
+    
+    # Fill and drain queues
+    output_queue = args["output_queue"]
+    output_queue.fill_and_drain_queue()
 
 
 def read_queue(
@@ -137,7 +141,7 @@ def main() -> int:
 
     # Just set a timer to stop the worker after a while, since the worker infinite loops
     threading.Timer(
-        HEARTBEAT_PERIOD_S * (NUM_TRIALS * 2 + DISCONNECT_THRESHOLD + NUM_DISCONNECTS + 2),
+        HEARTBEAT_PERIOD_S * (NUM_TRIALS * 2 + DISCONNECT_THRESHOLD + NUM_DISCONNECTS + 3),
         stop,
         (args,),
     ).start()

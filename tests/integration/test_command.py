@@ -66,6 +66,12 @@ def stop(
     """
     controller = args["controller"]
     controller.request_exit()
+    
+    # Fill and drain queues
+    input_queue = args["input_queue"]
+    output_queue = args["output_queue"]
+    input_queue.fill_and_drain_queue()
+    output_queue.fill_and_drain_queue()
 
 
 def read_queue(
