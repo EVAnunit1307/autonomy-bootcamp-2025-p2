@@ -78,6 +78,10 @@ def command_worker(
         except queue.Empty:
             continue
 
+        # Skip None values from queue draining
+        if telemetry_data is None:
+            continue
+
         result, output = command_instance.run(telemetry_data)
         if not result:
             continue
